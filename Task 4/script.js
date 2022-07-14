@@ -9,4 +9,30 @@ Pastaba: Sukurta kortelė, kurioje yra informacija apie automobilį (brand), tur
 turėti bent minimalų stilių ir būti responsive;
 -------------------------------------------------------------------------- */
 
-const ENDPOINT = 'cars.json';
+const ENDPOINT = "cars.json";
+
+const renderCars = (car) => {
+  const card = document.createElement("div");
+  const brandEl = document.createElement("h2");
+  const listEl = document.createElement("ul");
+
+  brandEl.textContent = car.brand;
+  car.models.forEach((models) => {
+    const modelEl = document.createElement("li");
+    modelEl.textContent = models;
+    listEl.append(modelEl);
+  });
+  card.className = "card";
+  card.append(brandEl, listEl);
+  const output = document.getElementById("output").append(card);
+};
+
+fetch(ENDPOINT)
+  .then((resp) => resp.json())
+  .then((response) => {
+    console.log(response);
+    response.forEach((car) => renderCars(car));
+  })
+  .catch((error) => {
+    console.error(error);
+  });

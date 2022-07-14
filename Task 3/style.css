@@ -58,15 +58,18 @@
   padding: 30px;
   border-radius: 5px;
   background-color: #fff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
 }
 
 .card {
-  padding: 16px;
-  border: 2px, solid, #cccccc;
-  border-radius: 5px;
-  background-color: whitesmoke;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  padding: 24px;
+  width: 25%;
+  text-align: center;
+  margin: 16px;
+}
+.card img {
+  width: 150px;
+  height: 150px;
 }

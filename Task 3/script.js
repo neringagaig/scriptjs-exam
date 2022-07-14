@@ -10,35 +10,38 @@ Paspaudus mygtuką "Show users":
 Pastaba: Sukurta kortelė, kurioje yra pateikiama vartotojo informacija, turi 
 turėti bent minimalų stilių ir būti responsive;
 -------------------------------------------------------------------------- */
-const submitButton = document.querySelector("#btn");
 
 const ENDPOINT = "https://api.github.com/users";
 
+const submitButton = document.getElementById("btn");
+
 const renderCard = (user) => {
+  const { login, avatar_url } = user;
   const card = document.createElement("div");
   const titleEl = document.createElement("h3");
-  const avatarUrlEl = document.createElement("h4");
+  const avatarImg = document.createElement("img");
 
-  titleEl.textContent = user.login;
-  avatarUrlEl.textContent = user.avatar_url;
+  titleEl.textContent = login;
+  avatarImg.src = avatar_url;
 
   card.className = "card";
-  card.append(titleEl, avatarUrlEl);
+  card.append(avatarImg, titleEl);
 
-  document.getElementById("output").append(card);
+  const output = document.getElementById("output").append(card);
   document.getElementById("message").textContent = "";
+
+  return output;
 };
 
-fetch(ENDPOINT)
-  .then((resp) => resp.json())
-  .then((response) => {
-    response.forEach((user) => renderCard(user));
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-
-submitButton.addEventListener("submit", (event) => {
+submitButton.addEventListener("click", (event) => {
   event.preventDefault();
-  return renderCard;
+  fetch(ENDPOINT)
+    .then((resp) => resp.json())
+    .then((response) => {
+      console.log(response);
+      response.forEach((user) => renderCard(user));
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });
